@@ -6,14 +6,24 @@ onInit()
 function onInit() {
   gElCanvas = document.getElementById('main-canvas')
   gCtx = gElCanvas.getContext('2d')
-  renderMeme()
 }
 
 function renderMeme() {
-  const { selectedImgId: imgId, lines } = getMeme()
-
+  const { selectedImgId: imgId, selectedLineIdx: lineIdx, lines } = getMeme()
   drawImg(imgId)
-  drawText(lines[lines.length - 1], gElCanvas.width / 2, 100)
+  drawText(lines[lineIdx], gElCanvas.width / 2, 100)
+  document.querySelector('.main-gallery').classList.add('hidden')
+  document.querySelector('.meme-editor').classList.remove('hidden')
+}
+
+function onChangeFontSize(diff) {
+  updateFontSize(diff)
+  renderMeme()
+}
+
+function onColorSelect(color) {
+  setColor(color)
+  renderMeme()
 }
 
 function resizeCanvas() {
@@ -27,12 +37,8 @@ function drawImg(imgId) {
   gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function onSetImg(imgIdx) {
-  const imgUrl = getImgById(imgIdx)
-}
-
 function drawText(text, x, y) {
-  const { txt, color = 'white', size = 30, align = 'center' } = text
+  const { txt, color, size = 30, align = 'center' } = text
   gCtx.lineWidth = 2
   gCtx.strokeStyle = 'black'
   gCtx.fillStyle = color

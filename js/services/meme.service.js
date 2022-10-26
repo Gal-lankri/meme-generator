@@ -1,12 +1,20 @@
 'use strict'
+
 const gKeywordSearchCountMap = { funny: 12, cat: 16, baby: 2 }
 
-const gImgs = [{ id: 1, url: '/images/1.jpg', keywords: ['funny', 'cat'] }]
+const gImgs = [
+  { id: 1, url: '/images/1.jpg', keywords: ['funny', 'cat'] },
+  { id: 2, url: '/images/2.jpg', keywords: ['funny', 'cat'] },
+]
 
 var gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
   lines: [{ txt: 'I sometimes eat Falafel', size: 40, align: 'center', color: 'white' }],
+}
+
+function setColor(color) {
+  gMeme.lines[gMeme.selectedLineIdx].color = color
 }
 
 function _creatMeme(imgIdx, lineIdx, lines) {
@@ -19,6 +27,10 @@ function _creatMeme(imgIdx, lineIdx, lines) {
 
 function _creatMemes() {}
 
+function setImg(imgIdx) {
+  gMeme.selectedImgId = imgIdx
+}
+
 function getImgById(imgId) {
   const { url } = gImgs.find((img) => imgId === img.id)
   return url
@@ -28,6 +40,15 @@ function getMeme() {
   return gMeme
 }
 
+function getImages() {
+  return gImgs
+}
+
 function setLineTxt(line) {
-  gMeme.lines.push(line)
+  gMeme.lines[gMeme.selectedLineIdx].txt = line
+}
+
+function updateFontSize(diff) {
+  if (diff === 'increase') gMeme.lines[gMeme.selectedLineIdx].size++
+  else gMeme.lines[gMeme.selectedLineIdx].size--
 }

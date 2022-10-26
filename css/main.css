@@ -2,20 +2,68 @@
   box-sizing: border-box;
 }
 @font-face {
-    font-family: 'impact';
-    src: url(/fonts/impact.ttf);
-}
-img{
-    width: 100%;
+  font-family: 'impact';
+  src: url(/fonts/impact.ttf);
 }
 
-.canvas-conatiner{
-    margin: auto;
-    width: fit-content;
+/* BASIC */
+
+
+img {
+  width: 100%;
 }
 
-#main-canvas{
-    background-color: antiquewhite;
+/* COMPONENT */
+
+/* main header */
+.main-header{
+    display: grid;
+    grid-template-columns: repeat(4, 3.125rem);
+    grid-template-rows: 1.25rem;
+    
+}
+.main-logo{
+    height: 150px;
+    width: 150px;
+}
+/* main canvas */
+.canvas-conatiner {
+  margin: auto;
+  width: fit-content;
+}
+
+#main-canvas {
+  background-color: antiquewhite;
+}
+
+/* main-gellery */
+.images-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(2, 200px);
+  gap: 15px;
+  place-content: center;
 }
 
 
+
+/* editor */
+
+.meme-editor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(400px, 1fr));
+  gap: 3.125rem;
+}
+
+/* HELPERS */
+
+.hidden {
+  display: none;
+}
