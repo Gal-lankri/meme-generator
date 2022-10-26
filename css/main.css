@@ -1,3 +1,21 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
+@font-face {
+    font-family: 'impact';
+    src: url(/fonts/impact.ttf);
+}
+img{
+    width: 100%;
+}
+
+.canvas-conatiner{
+    margin: auto;
+    width: fit-content;
+}
+
+#main-canvas{
+    background-color: antiquewhite;
+}
+
+
