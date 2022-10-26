@@ -28,9 +28,11 @@
           placeholder="Enter text"
           oninput="onSetLineTxt(this.value)"
         />
-        <input type="color" name="color-select" oninput="onColorSelect(this.value)"/>
-        <button class="btn increase-font"  onclick="onChangeFontSize('increase')">A+</button>
-        <button class="btn decrease-font"  onclick="onChangeFontSize('decrease')">A-</button>
+        <input type="color" name="color-select"oninput="onColorSelect(this.value)"/>
+        <button class="btn increase-font-btn" onclick="onChangeFontSize('increase')"></button>
+        <button class="btn decrease-font-btn" onclick="onChangeFontSize('decrease')"></button>
+        <button class="btn switch-line-btn" onclick="onSwitchLines()"></button>
+        <button class="btn add-line-btn" onclick="onAddLine()"></button>
       </section>
     </section>
 

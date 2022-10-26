@@ -1,11 +1,24 @@
 'use strict'
 
 const gKeywordSearchCountMap = { funny: 12, cat: 16, baby: 2 }
+const imgNums = 18
+const gImgs = []
 
-const gImgs = [
-  { id: 1, url: '/images/1.jpg', keywords: ['funny', 'cat'] },
-  { id: 2, url: '/images/2.jpg', keywords: ['funny', 'cat'] },
-]
+_creatImages(imgNums)
+
+function _creatImages(imgNum) {
+  for (let i = 1; i < imgNum; i++) {
+    gImgs.push(_creatImage(i, `images/${i}.jpg`, 'funny'))
+  }
+}
+
+function _creatImage(id, url, keywords) {
+  return {
+    id,
+    url,
+    keywords: [keywords],
+  }
+}
 
 var gMeme = {
   selectedImgId: 1,

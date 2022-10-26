@@ -1,13 +1,14 @@
 * {
   box-sizing: border-box;
 }
+
+/* TYPOGRAPHY */
 @font-face {
-  font-family: 'impact';
-  src: url(/fonts/impact.ttf);
+  font-family: impact;
+  src: url('../fonts/impact.ttf');
 }
 
 /* BASIC */
-
 
 img {
   width: 100%;
@@ -16,15 +17,19 @@ img {
 /* COMPONENT */
 
 /* main header */
-.main-header{
-    display: grid;
-    grid-template-columns: repeat(4, 3.125rem);
-    grid-template-rows: 1.25rem;
-    
+.main-header {
+  display: grid;
+  grid-template-columns: repeat(4, 3.125rem);
+  grid-template-rows: 1.25rem;
+  column-gap: 10rem;
 }
-.main-logo{
-    height: 150px;
-    width: 150px;
+.main-logo {
+  grid-column: 1/1;
+  height: 150px;
+  width: 150px;
+}
+.gallery-btn {
+  grid-column: 2;
 }
 /* main canvas */
 .canvas-conatiner {
@@ -38,17 +43,16 @@ img {
 
 /* main-gellery */
 .images-container {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   display: grid;
-  grid-template-columns: repeat(2, 200px);
-  gap: 15px;
+  grid-template-columns: repeat(6, 150px);
+  gap: 0.93rem;
   place-content: center;
+  margin-top: 3.125rem;
 }
-
-
 
 /* editor */
 
@@ -66,4 +70,18 @@ img {
 
 .hidden {
   display: none;
+}
+
+/* BUTTONS */
+.increase-font-btn::before {
+  content: 'A+';
+}
+.decrease-font-btn::before {
+  content: 'A-';
+}
+.switch-line-btn::before {
+  content: '⇅';
+}
+.add-line-btn::before {
+  content: '+';
 }
