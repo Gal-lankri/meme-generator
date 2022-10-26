@@ -38,7 +38,14 @@ function _creatMeme(imgIdx, lineIdx, lines) {
   }
 }
 
-function _creatMemes() {}
+function _creatNewLine(txt, size = 40, align = 'center', color = 'white') {
+  return {
+    txt,
+    size,
+    align,
+    color,
+  }
+}
 
 function setImg(imgIdx) {
   gMeme.selectedImgId = imgIdx
@@ -57,11 +64,17 @@ function getImages() {
   return gImgs
 }
 
-function setLineTxt(line) {
-  gMeme.lines[gMeme.selectedLineIdx].txt = line
-}
+// function setLineTxt(line) {
+//   if ()
+//   gMeme.lines[gMeme.selectedLineIdx].txt = line
+// }
 
 function updateFontSize(diff) {
   if (diff === 'increase') gMeme.lines[gMeme.selectedLineIdx].size++
   else gMeme.lines[gMeme.selectedLineIdx].size--
+}
+
+function setNewLine(newLine, color) {
+  gMeme.lines.push(_creatNewLine(newLine, undefined, undefined, color))
+  gMeme.selectedLineIdx++
 }

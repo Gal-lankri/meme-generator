@@ -11,7 +11,8 @@ function onInit() {
 function renderMeme() {
   const { selectedImgId: imgId, selectedLineIdx: lineIdx, lines } = getMeme()
   drawImg(imgId)
-  drawText(lines[lineIdx], gElCanvas.width / 2, 100)
+  if (lineIdx !== 0) drawText(lines[lineIdx], gElCanvas.width / 2, 300)
+  else drawText(lines[lineIdx], gElCanvas.width / 2, 100)
   document.querySelector('.main-gallery').classList.add('hidden')
   document.querySelector('.meme-editor').classList.remove('hidden')
 }
@@ -46,6 +47,13 @@ function drawText(text, x, y) {
   gCtx.textAlign = align
   gCtx.fillText(txt, x, y)
   gCtx.strokeText(txt, x, y)
+}
+
+function onAddLine() {
+  const newLine = document.querySelector('[name=line]').value
+  const color = document.querySelector('[name="color-select"]')
+  setNewLine(newLine, color)
+  renderMeme()
 }
 
 function onSetLineTxt(line) {

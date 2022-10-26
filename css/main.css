@@ -9,7 +9,9 @@
 }
 
 /* BASIC */
-
+body {
+    background-color: gainsboro;
+}
 img {
   width: 100%;
 }
@@ -18,19 +20,15 @@ img {
 
 /* main header */
 .main-header {
-  display: grid;
-  grid-template-columns: repeat(4, 3.125rem);
-  grid-template-rows: 1.25rem;
-  column-gap: 10rem;
+  display: flex;
+  justify-content: space-between;
+  height: 2.3rem;
 }
 .main-logo {
-  grid-column: 1/1;
-  height: 150px;
-  width: 150px;
+  height: 9.375rem;
+  width: 9.375rem;
 }
-.gallery-btn {
-  grid-column: 2;
-}
+
 /* main canvas */
 .canvas-conatiner {
   margin: auto;

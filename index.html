@@ -9,7 +9,7 @@
   </head>
   <body onload="renderGallery()">
     <header class="main-header">
-      <div class="main-logo"><img src="images/LOGO/LOGO.png" alt=""></div>
+      <div class="main-logo"><img src="images/LOGO/LOGO.png" alt="" /></div>
       <button class="btn gallery-btn">Gallery</button>
       <button class="btn memes-btn">Memes</button>
       <button class="btn about-btn">About</button>
@@ -23,12 +23,14 @@
       </div>
       <section class="control-box">
         <input
+        onfocus="this.value=''"
           type="text"
           name="line"
           placeholder="Enter text"
           oninput="onSetLineTxt(this.value)"
+          maxlength="19"
         />
-        <input type="color" name="color-select"oninput="onColorSelect(this.value)"/>
+        <input type="color" name="color-select" oninput="onColorSelect(this.value)" />
         <button class="btn increase-font-btn" onclick="onChangeFontSize('increase')"></button>
         <button class="btn decrease-font-btn" onclick="onChangeFontSize('decrease')"></button>
         <button class="btn switch-line-btn" onclick="onSwitchLines()"></button>
