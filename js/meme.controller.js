@@ -11,11 +11,13 @@ function onInit() {
 function renderMeme() {
   const { selectedImgId: imgId, selectedLineIdx: lineIdx, lines } = getMeme()
   drawImg(imgId)
+  
   if (lineIdx !== 0) drawText(lines[lineIdx], gElCanvas.width / 2, 300)
   else drawText(lines[lineIdx], gElCanvas.width / 2, 100)
   document.querySelector('.main-gallery').classList.add('hidden')
   document.querySelector('.meme-editor').classList.remove('hidden')
 }
+
 
 function onChangeFontSize(diff) {
   updateFontSize(diff)

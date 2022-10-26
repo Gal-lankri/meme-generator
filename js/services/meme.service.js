@@ -8,7 +8,7 @@ _creatImages(imgNums)
 
 function _creatImages(imgNum) {
   for (let i = 1; i < imgNum; i++) {
-    gImgs.push(_creatImage(i, `images/${i}.jpg`, 'funny'))
+    gImgs.push(_creatImage(i, `/.images/${i}.jpg`, 'funny'))
   }
 }
 
@@ -23,7 +23,10 @@ function _creatImage(id, url, keywords) {
 var gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
-  lines: [{ txt: 'I sometimes eat Falafel', size: 40, align: 'center', color: 'white' }],
+  lines: [
+    { txt: 'I sometimes eat Falafel', size: 40, align: 'center', color: 'white' },
+    { txt: 'I sometimes eat Falafel', size: 40, align: 'center', color: 'white' },
+  ],
 }
 
 function setColor(color) {
@@ -64,10 +67,9 @@ function getImages() {
   return gImgs
 }
 
-// function setLineTxt(line) {
-//   if ()
-//   gMeme.lines[gMeme.selectedLineIdx].txt = line
-// }
+function setLineTxt(line) {
+  gMeme.lines[gMeme.selectedLineIdx].txt = line
+}
 
 function updateFontSize(diff) {
   if (diff === 'increase') gMeme.lines[gMeme.selectedLineIdx].size++
