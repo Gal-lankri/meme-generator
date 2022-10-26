@@ -8,7 +8,7 @@ _creatImages(imgNums)
 
 function _creatImages(imgNum) {
   for (let i = 1; i < imgNum; i++) {
-    gImgs.push(_creatImage(i, `/.images/${i}.jpg`, 'funny'))
+    gImgs.push(_creatImage(i, `./images/${i}.jpg`, 'funny'))
   }
 }
 
