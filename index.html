@@ -13,8 +13,8 @@
       <div class="main-logo"><img src="images/LOGO/LOGO.png" alt="" /></div>
       <button class="btn menu-btn hidden" onclick="openMobileMenu(event)"></button>
       <div class="main-header-btns">
-        <button class="btn gallery-btn">Gallery</button>
-        <button class="btn memes-btn">Memes</button>
+        <button class="btn gallery-btn" onclick="onBackToGallery()">Gallery</button>
+        <button class="btn memes-btn" onclick="openMemesGallery()">Memes</button>
         <button class="btn about-btn">About</button>
       </div>
     </header>
@@ -22,8 +22,11 @@
     <section class="main-gallery">
       <div class="images-container"></div>
     </section>
-
+    <section class="saved-memes-gallery hidden">
+      <div class="saved-memes-container"></div>
+    </section>
     <section class="meme-editor hidden">
+      <button class="btn back-gallery-btn" onclick="onBackToGallery()">&gt; Back to Gallery</button>
       <div class="canvas-conatiner">
         <canvas height="500" width="500" id="main-canvas"></canvas>
       </div>
@@ -35,26 +38,32 @@
             <button class="btn add-line-btn" onclick="onAddLine()"></button>
             <button class="btn remove-line-btn" onclick="onRemoveLine()"></button>
           </div>
-          <input
-            type="color"
-            name="color-select"
-            oninput="onColorSelect(this.value)"
-            placeholder=""
-          />
-          <button class="btn increase-font-btn" onclick="onChangeFontSize('increase')"></button>
-          <button class="btn decrease-font-btn" onclick="onChangeFontSize('decrease')"></button>
+          <div class="color-text-inputs">
+            <input
+              type="color"
+              name="color-select"
+              oninput="onColorSelect(this.value)"
+              placeholder=""
+            />
+            <button class="btn increase-font-btn" onclick="onChangeFontSize('increase')"></button>
+            <button class="btn decrease-font-btn" onclick="onChangeFontSize('decrease')"></button>
+            <input
+              class="line-input"
+              onfocus="this.value = ''"
+              type="text"
+              name="line"
+              placeholder="I sometimes eat Falafel"
+              oninput="onSetLineTxt(this.value)"
+              maxlength="22"
+            />
+          </div>
         </div>
-        <input
-          onfocus="this.value = ''"
-          type="text"
-          name="line"
-          placeholder="I sometimes eat Falafel"
-          oninput="onSetLineTxt(this.value)"
-          maxlength="22"
-        />
-        <a href="#" class="download-link" onclick="downloadCanvas(this)" download="file-name"
-          >Download</a
-        >
+        <div class="bottom-control-box">
+          <a href="#" class="download-link" onclick="downloadCanvas(this)" download="file-name"
+            >Download</a
+          >
+          <button class="btn save-meme-btn" onclick="onSaveMemeToStorage()">Save</button>
+        </div>
       </section>
     </section>
 
@@ -62,7 +71,7 @@
       <button class="btn close-menu-btn" onclick="openMobileMenu(event)"></button>
       <button class="btn mobile-memes-btn">Memes</button>
       <span>―</span>
-      <button class="btn mobile-gallery-btn">Gallery</button>
+      <button class="btn mobile-gallery-btn" onclick="onBackToGallery()">Gallery</button>
       <span>―</span>
       <button class="btn mobile-about-btn">About</button>
     </div>

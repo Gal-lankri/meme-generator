@@ -10,13 +10,13 @@ function onInit() {
   window.addEventListener('resize', resizeCanvas)
 }
 
-function renderMeme() {
+function renderMeme(resize) {
   const { selectedImgId: imgId, selectedLineIdx: lineIdx, lines } = getMeme()
   drawImg(imgId)
   drawText(lines, lineIdx)
+  if (resize) return
   document.querySelector('.main-gallery').classList.add('hidden')
   document.querySelector('.meme-editor').classList.remove('hidden')
-  console.log('gMeme.lines[0].pos.x', gMeme.lines[0].pos.x)
 }
 
 function onChangeFontSize(diff) {
@@ -31,9 +31,8 @@ function onColorSelect(color) {
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.canvas-conatiner')
-  gElCanvas.width = elContainer.offsetWidth - 10
-
-  renderMeme()
+  gElCanvas.width = elContainer.offsetWidth - 40
+  renderMeme('resize')
 }
 
 function drawImg(imgId) {
@@ -43,27 +42,16 @@ function drawImg(imgId) {
 }
 
 function drawText(lines, lineIdx) {
-  if (lines.length <= 2) {
-    loadFirstLines = true
-    lines.forEach(({ txt, color, size, align, pos }, idx) => {
-      gCtx.lineWidth = 2
-      gCtx.strokeStyle = 'black'
-      gCtx.fillStyle = color
-      gCtx.font = `${size}rem impact`
-      gCtx.textAlign = align
-      gCtx.fillText(txt, gElCanvas.width / 2, pos.y)
-      gCtx.strokeText(txt, gElCanvas.width / 2, pos.y)
-    })
-  } else {
-    const { txt, color, size, align, pos } = lines[lineIdx]
+  loadFirstLines = true
+  lines.forEach(({ txt, color, size, align, pos }, idx) => {
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
-    gCtx.font = `${size}px impact`
+    gCtx.font = `${size}rem impact`
     gCtx.textAlign = align
     gCtx.fillText(txt, gElCanvas.width / 2, pos.y)
     gCtx.strokeText(txt, gElCanvas.width / 2, pos.y)
-  }
+  })
 }
 
 function onAddLine() {
@@ -87,9 +75,23 @@ function onSwitchLines() {
 }
 
 function downloadCanvas(elLink) {
-    const data = gElCanvas.toDataURL() 
-    console.log('data', data) 
-    elLink.href = data 
-    elLink.download = 'Your Meme' 
-  }
-  
+  const data = gElCanvas.toDataURL()
+  elLink.href = data
+  elLink.download = 'Your Meme'
+}
+
+function onBackToGallery() {
+  document.querySelector('.mobile-menu').classList.add('hidden')
+  document.querySelector('.meme-editor').classList.add('hidden')
+  document.querySelector('.saved-memes-gallery').classList.add('hidden')
+  document.querySelector('.main-gallery').classList.remove('hidden')
+}
+
+function onRemoveLine() {
+  setRemoveLine()
+  renderMeme()
+}
+
+function onSaveMemeToStorage() {
+  setSaveMemeToStorage(gElCanvas.toDataURL())
+}

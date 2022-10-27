@@ -3,12 +3,15 @@
 const gKeywordSearchCountMap = { funny: 12, cat: 16, baby: 2 }
 const imgNums = 18
 const gImgs = []
+const gImgsFromStorage = []
+const STORAG_KEY = 'memesDB'
+const gSavedMemes = []
 
-_creatImages(imgNums)
+_creatImages(imgNums, gImgs)
 
-function _creatImages(imgNum) {
+function _creatImages(imgNum, images) {
   for (let i = 1; i < imgNum; i++) {
-    gImgs.push(_creatImage(i, `./images/${i}.jpg`, 'funny'))
+    images.push(_creatImage(i, `./images/${i}.jpg`, 'funny'))
   }
 }
 
@@ -45,15 +48,7 @@ function setColor(color) {
   gMeme.lines[gMeme.selectedLineIdx].color = color
 }
 
-function _creatMeme(imgIdx, lineIdx, lines) {
-  return {
-    imgIdx,
-    lineIdx,
-    lines: [lines],
-  }
-}
-
-function _creatNewLine(txt, size = 40, align = 'center', color = 'white', pos) {
+function _creatNewLine(txt, size = 2.3, align = 'center', color = 'white', pos) {
   return {
     txt,
     size,
@@ -81,7 +76,8 @@ function getImages() {
 }
 
 function setLineTxt(line) {
-  gMeme.lines[gMeme.selectedLineIdx].txt = line
+  if (!gMeme.lines.length) _creatNewLine(line, undefined, undefined, undefined, { x: 250, y: 50 })
+  else gMeme.lines[gMeme.selectedLineIdx].txt = line
 }
 
 function updateFontSize(diff) {
@@ -90,12 +86,34 @@ function updateFontSize(diff) {
 }
 
 function setNewLine(newLine, color) {
-  gMeme.lines.push(_creatNewLine(newLine, undefined, undefined, color))
+  gMeme.lines.push(
+    _creatNewLine(newLine, undefined, undefined, color, {
+      x: gElCanvas.width,
+      y: gElCanvas.height / 2,
+    })
+  )
   gMeme.selectedLineIdx++
 }
 
 function setLineSelect() {
-  if (gMeme.selectedLineIdx >= 0 && gMeme.lines.length - 1 > gMeme.selectedLineIdx) {
+  if (gMeme.selectedLineIdx < gMeme.lines.length - 1) {
     gMeme.selectedLineIdx++
-  } else gMeme.selectedLineIdx--
+  } else if (gMeme.selectedLineIdx > 0) gMeme.selectedLineIdx--
+}
+
+function setRemoveLine() {
+  if (gMeme.lines.length === 0) return
+  gMeme.lines.splice(gMeme.lines.length - 1, 1)
+}
+
+function setSaveMemeToStorage(meme) {
+  gSavedMemes.push(meme)
+  saveToStorage(STORAG_KEY, gSavedMemes)
+}
+
+function loadMemeFromStorage() {
+  const dataURLS = loadFromStorage(STORAG_KEY)
+  dataURLS.map((dataUrl) => {
+    gImgsFromStorage.push(dataUrl)
+  })
 }
