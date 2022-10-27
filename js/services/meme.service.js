@@ -24,8 +24,20 @@ var gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
   lines: [
-    { txt: 'I sometimes eat Falafel', size: 40, align: 'center', color: 'white' },
-    { txt: 'I sometimes eat Falafel', size: 40, align: 'center', color: 'white' },
+    {
+      txt: 'I sometimes eat Falafel',
+      size: 2.5,
+      align: 'center',
+      color: 'white',
+      pos: { y: 50 },
+    },
+    {
+      txt: 'I sometimes eat Pizza',
+      size: 2.5,
+      align: 'center',
+      color: 'white',
+      pos: { y: 450 },
+    },
   ],
 }
 
@@ -41,12 +53,13 @@ function _creatMeme(imgIdx, lineIdx, lines) {
   }
 }
 
-function _creatNewLine(txt, size = 40, align = 'center', color = 'white') {
+function _creatNewLine(txt, size = 40, align = 'center', color = 'white', pos) {
   return {
     txt,
     size,
     align,
     color,
+    pos,
   }
 }
 
@@ -79,4 +92,10 @@ function updateFontSize(diff) {
 function setNewLine(newLine, color) {
   gMeme.lines.push(_creatNewLine(newLine, undefined, undefined, color))
   gMeme.selectedLineIdx++
+}
+
+function setLineSelect() {
+  if (gMeme.selectedLineIdx >= 0 && gMeme.lines.length - 1 > gMeme.selectedLineIdx) {
+    gMeme.selectedLineIdx++
+  } else gMeme.selectedLineIdx--
 }
