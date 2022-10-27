@@ -26,8 +26,8 @@ img {
   width: 100%;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
 
 /* COMPONENT */
@@ -60,7 +60,7 @@ a{
 
 /* main canvas */
 .canvas-conatiner {
-   display: flex;
+  display: flex;
   justify-content: center;
   margin: auto;
   width: 80vw;
@@ -108,14 +108,14 @@ a{
   font-family: roboto;
 }
 
-.control-box .download-link{
-    font-family: roboto;
-    font-size: 1.125rem;
-    padding:  1.1rem 2.187rem;
-    border-radius: 3rem;
-    color: #ffffff;
-    background-color: #ff9826;
-    width: fit-content;
+.control-box .download-link {
+  font-family: roboto;
+  font-size: 1.125rem;
+  padding: 1.1rem 2.187rem;
+  border-radius: 3rem;
+  color: #ffffff;
+  background-color: #ff9826;
+  width: fit-content;
 }
 
 /* mobile-menu */
@@ -217,6 +217,10 @@ a{
 
   .menu-btn {
     display: inline-block;
+  }
+
+  .canvas-conatiner {
+    height: 40vh;
   }
 
   .main-header-btns {
