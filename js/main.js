@@ -9,6 +9,6 @@ function openMobileMenu(el) {
   } else if (!elEditor.classList.contains('hidden')) {
     gCurrShownEl = elEditor
   }
-  if (gCurrShownEl) gCurrShownEl.classList.toggle('hidden')
+  gCurrShownEl.classList.toggle('hidden')
   document.querySelector('.mobile-menu').classList.toggle('hidden')
 }
