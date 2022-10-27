@@ -63,7 +63,7 @@ a {
   display: flex;
   justify-content: center;
   margin: auto;
-  width: 80vw;
+  width: 60vw;
 }
 
 #main-canvas {
@@ -220,8 +220,7 @@ a {
   }
 
   .canvas-conatiner {
-    height: 40vh;
-    width: 90vw;
+    width: 100vw;
   }
 
   .main-header-btns {

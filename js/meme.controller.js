@@ -31,7 +31,7 @@ function onColorSelect(color) {
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.canvas-conatiner')
-  gElCanvas.width = elContainer.offsetWidth - 30
+  gElCanvas.width = elContainer.offsetWidth - 10
 
   renderMeme()
 }
