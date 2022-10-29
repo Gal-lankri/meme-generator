@@ -58,14 +58,22 @@
             <button class="btn remove-line-btn" onclick="onRemoveLine()"></button>
           </div>
           <div class="color-text-inputs">
-            <input
-              type="color"
-              name="color-select"
-              oninput="onColorSelect(this.value)"
-              placeholder=""
-            />
             <button class="btn increase-font-btn" onclick="onChangeFontSize('increase')"></button>
             <button class="btn decrease-font-btn" onclick="onChangeFontSize('decrease')"></button>
+            <span>|</span>
+            <input
+            class="pallate"
+            type="color"
+            name="color-select"
+            oninput="onColorSelect(this.value)"
+          />
+          <input
+            class="stroke"
+            type="color"
+            name="stroke-select"
+            oninput="onStrokeSelect(this.value)"
+            placeholder=""
+          />
             <input
               class="line-input"
               onfocus="this.value = ''"

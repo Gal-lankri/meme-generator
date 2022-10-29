@@ -55,6 +55,7 @@ var gMeme = {
       size: 30,
       align: 'left',
       color: 'white',
+      stroke: 'black',
       pos: { y: 50, x: 10 },
       isDrag: false,
     },
@@ -63,6 +64,7 @@ var gMeme = {
       size: 30,
       align: 'left',
       color: 'white',
+      stroke: 'black',
       pos: { y: 450, x: 10 },
       isDrag: false,
     },
@@ -72,13 +74,17 @@ var gMeme = {
 function setColor(color) {
   gMeme.lines[gMeme.selectedLineIdx].color = color
 }
+function setStroke(color) {
+  gMeme.lines[gMeme.selectedLineIdx].stroke = color
+}
 
-function _creatNewLine(txt, size = 30, align = 'left', color = 'white', pos) {
+function _creatNewLine(txt, size = 30, align = 'left', color = 'white', stroke = 'black', pos) {
   return {
     txt,
     size,
     align,
     color,
+    stroke,
     pos,
     isDrag: false,
   }

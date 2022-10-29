@@ -32,7 +32,7 @@ function renderSavedMemes() {
   if (!images || images.length === 0) return
   const strHTMLs = images.map(
     (Image) => `
-    <img src="${Image}" alt=""/>`
+    <img src="${Image}" onclick="drawSavedMeme(this.src)"/>`
   )
   document.querySelector('.saved-memes-container').innerHTML = strHTMLs.join('')
 }

@@ -26,11 +26,6 @@ function renderMeme(resize) {
 function addListeners() {
   addMouseListeners()
   addTouchListeners()
-  //Listen for resize ev
-  // window.addEventListener('resize', () => {
-  //   resizeCanvas()
-  //   renderCanvas()
-  // })
 }
 
 function addMouseListeners() {
@@ -88,7 +83,7 @@ function getEvPos(ev) {
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.canvas-conatiner')
-  gElCanvas.width = elContainer.offsetWidth - 40
+  gElCanvas.width = elContainer.offsetWidth - 50
   renderMeme('resize')
 }
 
@@ -97,13 +92,21 @@ function drawImg(imgId) {
   img.src = getImgById(imgId)
   gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
+function drawSavedMeme(src) {
+  const img = new Image()
+  img.src = src
+  gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+  document.querySelector('.saved-memes-gallery').classList.add('hidden')
+  document.querySelector('.meme-editor').classList.remove('hidden')
+
+}
 
 function drawText(lines) {
-  lines.forEach(({ txt, color, size, align, pos }, idx) => {
+  lines.forEach(({ txt, color, size, align, pos, stroke }, idx) => {
+    gCtx.font = `${size}px impactfont`
     gCtx.lineWidth = 2
-    gCtx.strokeStyle = 'black'
+    gCtx.strokeStyle = stroke
     gCtx.fillStyle = color
-    gCtx.font = `${size}px impact`
     gCtx.textAlign = align
     gCtx.fillText(txt, pos.x, pos.y)
     gCtx.strokeText(txt, pos.x, pos.y)
@@ -149,8 +152,13 @@ function onColorSelect(color) {
   setColor(color)
   renderMeme()
 }
+function onStrokeSelect(color) {
+  setStroke(color)
+  renderMeme()
+}
 
 function downloadCanvas(elLink) {
+  renderMeme()
   const data = gElCanvas.toDataURL()
   elLink.href = data
   elLink.download = 'Your Meme'
