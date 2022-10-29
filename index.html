@@ -20,11 +20,30 @@
     </header>
 
     <section class="main-gallery">
+      <div class="search-bar">
+        <label class="imgs-keys-label" for="imgs-keys"></label>
+        <input
+        placeholder="Choose your catagory:"
+          list="imgs-keys"
+          name="imgs-keys"
+          id="img-key"
+          oninput="onFilterByImgKey(this.value)"
+        />
+        <datalist id="imgs-keys">
+          <option value="Tv"></option>
+          <option value="Cute"></option>
+          <option value="Funny"></option>
+          <option value="Baby"></option>
+          <option value="Politician"></option>
+          <option value="WTF"></option>
+        </datalist>
+      </div>
       <div class="images-container"></div>
     </section>
     <section class="saved-memes-gallery hidden">
       <div class="saved-memes-container"></div>
     </section>
+
     <section class="meme-editor hidden">
       <button class="btn back-gallery-btn" onclick="onBackToGallery()">&gt; Back to Gallery</button>
       <div class="canvas-conatiner">
@@ -54,7 +73,7 @@
               name="line"
               placeholder="I sometimes eat Falafel"
               oninput="onSetLineTxt(this.value)"
-              maxlength="22"
+              maxlength="25"
             />
           </div>
         </div>

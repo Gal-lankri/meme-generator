@@ -15,6 +15,10 @@
   font-family: roboto-light;
   src: url('../fonts/Roboto-Light.ttf');
 }
+@font-face {
+  font-family: roboto-italic;
+  src: url('../fonts/Roboto-Italic.ttf');
+}
 
 /* BASIC */
 body {
@@ -73,25 +77,53 @@ a {
 /* main-gellery */
 .images-container {
   display: grid;
-  grid-template-columns: repeat(6, 150px);
+  grid-template-columns: repeat(auto-fill,minmax(13.125rem, 1fr));
+  /* grid-template-rows: 4rem, 6rem, 7rem; */
   gap: 0.93rem;
   place-content: center;
-  margin-top: 3.125rem;
+  margin-bottom: 1.5rem;
 }
 
 .images-container img {
   border-radius: 10%;
+  object-fit: cover;
 }
+.images-container img:nth-child(odd) {
+height: 15rem;
+}
+
 .images-container img:hover {
+  width: 105%;
   cursor: pointer;
   box-shadow: 2px 3px 8px 3px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 2px 3px 8px 3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 3px 8px 3px rgba(0, 0, 0, 0.75);
+  
 }
 
+.search-bar {
+  font-family: roboto-italic;
+  padding: 1.875rem 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+.search-bar input {
+  padding: 0.65rem 1.5rem;
+  font-family: roboto-italic;
+  justify-self: center;
+  width: 95%;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 50px;
+  font-size: 1rem;
+}
+.search-bar input::placeholder {
+  font-family: roboto-italic;
+  font-size: 1rem;
+}
 /* saved memes gallery */
 
-.saved-memes-container{
+.saved-memes-container {
   display: grid;
   grid-template-columns: repeat(6, 150px);
   gap: 0.93rem;
@@ -145,31 +177,29 @@ a {
   width: fit-content;
 }
 
-.color-text-inputs{
-  border: 1px solid #EBEBEB;
+.color-text-inputs {
+  border: 1px solid #ebebeb;
   display: flex;
   flex-wrap: wrap;
   background-color: #ffffff;
-  
 }
-.line-input{
+.line-input {
   border: unset;
-  border-top: 1px solid #DEDEDE;
+  border-top: 1px solid #dedede;
   flex-basis: 100%;
   height: 4rem;
 }
 .line-input ::placeholder {
   color: black;
-  
 }
 
-.bottom-control-box{
+.bottom-control-box {
   transform: translateY(350px);
   display: flex;
   justify-content: space-between;
   align-content: end;
 }
-.control-box .save-meme-btn{
+.control-box .save-meme-btn {
   font-family: roboto;
   font-size: 1.125rem;
   padding: 1.1rem 2.187rem;
@@ -282,11 +312,12 @@ a {
 
 @media (max-width: 700px) {
   .images-container {
-    grid-template-columns: repeat(2, 150px);
-    gap: 0.93rem;
-    place-content: center;
-    margin-top: 3.125rem;
+    grid-template-columns: repeat(auto-fill,minmax(10.5rem, 1fr));
+
   }
+  .images-container img:nth-child(odd) {
+    height: 12rem;
+    }
 
   .menu-btn {
     display: inline-block;

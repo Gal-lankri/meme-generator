@@ -1,13 +1,17 @@
 'use strict'
 let gElCanvas
 let gCtx
-let loadFirstLines
+let gCurrPos
+let gCurrLineClicked
+let gLastLineIdx
+const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 onInit()
 function onInit() {
   gElCanvas = document.getElementById('main-canvas')
   gCtx = gElCanvas.getContext('2d')
   window.addEventListener('resize', resizeCanvas)
+  addListeners()
 }
 
 function renderMeme(resize) {
@@ -19,14 +23,67 @@ function renderMeme(resize) {
   document.querySelector('.meme-editor').classList.remove('hidden')
 }
 
-function onChangeFontSize(diff) {
-  updateFontSize(diff)
+function addListeners() {
+  addMouseListeners()
+  addTouchListeners()
+  //Listen for resize ev
+  // window.addEventListener('resize', () => {
+  //   resizeCanvas()
+  //   renderCanvas()
+  // })
+}
+
+function addMouseListeners() {
+  gElCanvas.addEventListener('mousemove', onMove)
+  gElCanvas.addEventListener('mousedown', onDown)
+  gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+  gElCanvas.addEventListener('touchmove', onMove)
+  gElCanvas.addEventListener('touchstart', onDown)
+  gElCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+  const pos = getEvPos(ev)
+  if (!isLineClicked(pos)) return
+  setLineDrag(true)
+  gCurrPos = pos
+  document.body.style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+  if (gCurrLineClicked !== undefined) var { isDrag } = gCurrLineClicked
+  if (!isDrag) return
+  const pos = getEvPos(ev)
+  const dx = pos.x - gCurrPos.x
+  const dy = pos.y - gCurrPos.y
+  moveLine(dx, dy)
+  gCurrPos = pos
   renderMeme()
 }
 
-function onColorSelect(color) {
-  setColor(color)
-  renderMeme()
+function onUp() {
+  setLineDrag(false)
+  document.body.style.cursor = 'grab'
+}
+
+function getEvPos(ev) {
+  let pos = {
+    x: ev.offsetX,
+    y: ev.offsetY,
+  }
+
+  if (TOUCH_EVS.includes(ev.type)) {
+    ev.preventDefault()
+    ev = ev.changedTouches[0]
+    pos = {
+      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+    }
+  }
+  return pos
 }
 
 function resizeCanvas() {
@@ -41,37 +98,56 @@ function drawImg(imgId) {
   gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function drawText(lines, lineIdx) {
-  loadFirstLines = true
+function drawText(lines) {
   lines.forEach(({ txt, color, size, align, pos }, idx) => {
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
-    gCtx.font = `${size}rem impact`
+    gCtx.font = `${size}px impact`
     gCtx.textAlign = align
-    gCtx.fillText(txt, gElCanvas.width / 2, pos.y)
-    gCtx.strokeText(txt, gElCanvas.width / 2, pos.y)
+    gCtx.fillText(txt, pos.x, pos.y)
+    gCtx.strokeText(txt, pos.x, pos.y)
   })
 }
 
 function onAddLine() {
-  const newLine = document.querySelector('[name=line]').value
+  let elInuptLine = document.querySelector('[name="line"]')
+  elInuptLine.placeholder = 'Add new line'
+  const newLine = elInuptLine.value
   const color = document.querySelector('[name="color-select"]')
   setNewLine(newLine, color)
   renderMeme()
 }
 
 function onSetLineTxt(line) {
+  if (document.querySelector('[name="line"]').placeholder === 'Add new line') return
   setLineTxt(line)
   renderMeme()
 }
 
 function onSwitchLines() {
+  renderMeme()
   setLineSelect()
   const { lines, selectedLineIdx } = getMeme()
   let elInuptLine = document.querySelector('[name="line"]')
-  //   if (elInuptLine.placeholder === 'I sometimes eat Falafel')
   elInuptLine.placeholder = lines[selectedLineIdx].txt
+  gCtx.strokeStyle = '#F6F54D'
+  gCtx.strokeRect(
+    lines[selectedLineIdx].pos.x,
+    lines[selectedLineIdx].pos.y - lines[selectedLineIdx].size,
+    gCtx.measureText(lines[selectedLineIdx].txt).width + 5,
+    lines[selectedLineIdx].size + 5
+  )
+}
+
+function onChangeFontSize(diff) {
+  updateFontSize(diff)
+  renderMeme()
+}
+
+function onColorSelect(color) {
+  setColor(color)
+  renderMeme()
 }
 
 function downloadCanvas(elLink) {

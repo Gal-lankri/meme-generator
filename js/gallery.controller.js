@@ -12,7 +12,13 @@ function renderGallery() {
   document.querySelector('.images-container').innerHTML = strHTMLs.join('')
 }
 
-function onImgSelect(imgIdx){
-    setImg(+imgIdx)
-    renderMeme()
+function onImgSelect(imgIdx) {
+  setImg(+imgIdx)
+  renderMeme()
+}
+
+function onFilterByImgKey(key) {
+  console.log(key);
+  setFilterByImgKey(key)
+  renderGallery()
 }
