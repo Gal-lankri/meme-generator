@@ -187,7 +187,7 @@ function isLineClicked(pos) {
   const clickedLine = lines.find((line) => {
     return (
       pos.y < line.pos.y &&
-      pos.y > line.pos.y - gCtx.measureText(line.txt).fontBoundingBoxAscent &&
+      pos.y > line.pos.y - line.size &&
       pos.x > line.pos.x &&
       pos.x < line.pos.x + gCtx.measureText(line.txt).width
     )

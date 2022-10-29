@@ -71,6 +71,7 @@ function getEvPos(ev) {
   }
 
   if (TOUCH_EVS.includes(ev.type)) {
+  
     ev.preventDefault()
     ev = ev.changedTouches[0]
     pos = {
@@ -83,7 +84,8 @@ function getEvPos(ev) {
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.canvas-conatiner')
-  gElCanvas.width = elContainer.offsetWidth - 50
+  gElCanvas.width = elContainer.offsetWidth
+  gElCanvas.height = elContainer.offsetHeight
   renderMeme('resize')
 }
 
@@ -98,7 +100,6 @@ function drawSavedMeme(src) {
   gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
   document.querySelector('.saved-memes-gallery').classList.add('hidden')
   document.querySelector('.meme-editor').classList.remove('hidden')
-
 }
 
 function drawText(lines) {
