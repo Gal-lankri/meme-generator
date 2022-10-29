@@ -130,7 +130,7 @@ function updateFontSize(diff) {
 
 function setNewLine(newLine, color) {
   gMeme.lines.push(
-    _creatNewLine(newLine, undefined, undefined, color, {
+    _creatNewLine(newLine, undefined, undefined, color, undefined, {
       x: 10,
       y: gElCanvas.height / 2,
     })
