@@ -118,7 +118,7 @@ function getImages() {
 }
 
 function setLineTxt(line) {
-  if (!gMeme.lines.length) _creatNewLine(line, undefined, undefined, undefined, { x: 250, y: 50 })
+  if (!gMeme.lines.length) _creatNewLine(line, undefined, undefined, undefined, undefined, { x: 250, y: 50 })
   else gMeme.lines[gMeme.selectedLineIdx].txt = line
 }
 

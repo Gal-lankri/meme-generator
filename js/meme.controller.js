@@ -84,8 +84,7 @@ function getEvPos(ev) {
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.canvas-conatiner')
-  gElCanvas.width = elContainer.offsetWidth
-  gElCanvas.height = elContainer.offsetHeight
+  gElCanvas.width = elContainer.offsetWidth - 40
   renderMeme('resize')
 }
 
