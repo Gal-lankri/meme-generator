@@ -1,16 +1,16 @@
 'use strict'
-
+const gElCanvas = document.getElementById('main-canvas')
+const gCtx = gElCanvas.getContext('2d')
 const gKeywordSearchCountMap = { funny: 12, cat: 16, baby: 2 }
 const gNumsOfImgs = 18
 const gImgs = []
-const gImgsFromStorage = []
+let gImgsFromStorage = []
 const STORAG_KEY = 'memesDB'
 const gSavedMemes = []
 let gLineDiff = 'up'
 let gFiltterByImgKey
 
 _creatImages(gNumsOfImgs, gImgs)
-
 function _creatImages(imgNum, images) {
   for (let i = 1; i < imgNum; i++) {
     const keywords = []
@@ -56,7 +56,7 @@ var gMeme = {
       align: 'left',
       color: 'white',
       stroke: 'black',
-      pos: { y: 50, x: 10 },
+      pos: { y: gElCanvas.height / 5, x: 0 },
       isDrag: false,
     },
     {
@@ -65,7 +65,7 @@ var gMeme = {
       align: 'left',
       color: 'white',
       stroke: 'black',
-      pos: { y: 450, x: 10 },
+      pos: { y: gElCanvas.height - 150, x: 0 },
       isDrag: false,
     },
   ],
@@ -118,13 +118,14 @@ function getImages() {
 }
 
 function setLineTxt(line) {
-  if (!gMeme.lines.length) _creatNewLine(line, undefined, undefined, undefined, undefined, { x: 250, y: 50 })
+  if (!gMeme.lines.length)
+    _creatNewLine(line, undefined, undefined, undefined, undefined, { x: 250, y: 50 })
   else gMeme.lines[gMeme.selectedLineIdx].txt = line
 }
 
 function updateFontSize(diff) {
   const line = gMeme.lines[gMeme.selectedLineIdx]
-  if (diff === 'increase' && line.size * 10 < gElCanvas.width) line.size++
+  if (diff === 'increase' && gCtx.measureText(line.txt).width < gElCanvas.width) line.size++
   else line.size--
 }
 
@@ -167,6 +168,7 @@ function setSaveMemeToStorage(meme) {
 }
 
 function loadMemeFromStorage() {
+  gImgsFromStorage = []
   const dataURLS = loadFromStorage(STORAG_KEY)
   dataURLS.map((dataUrl) => {
     gImgsFromStorage.push(dataUrl)

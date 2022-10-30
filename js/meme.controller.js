@@ -1,26 +1,26 @@
 'use strict'
-let gElCanvas
-let gCtx
+
 let gCurrPos
 let gCurrLineClicked
 let gLastLineIdx
+let gLoadFirstLines = true
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 onInit()
 function onInit() {
-  gElCanvas = document.getElementById('main-canvas')
-  gCtx = gElCanvas.getContext('2d')
-  window.addEventListener('resize', resizeCanvas)
+  window.addEventListener('resize', () => resizeCanvas(getMeme().selectedImgId))
   addListeners()
+  
 }
-
-function renderMeme(resize) {
+function renderMeme(resize, backToGallery) {
   const { selectedImgId: imgId, selectedLineIdx: lineIdx, lines } = getMeme()
   drawImg(imgId)
   drawText(lines, lineIdx)
   if (resize) return
+  if (backToGallery) return
   document.querySelector('.main-gallery').classList.add('hidden')
   document.querySelector('.meme-editor').classList.remove('hidden')
+  resizeCanvas()
 }
 
 function addListeners() {
@@ -71,7 +71,6 @@ function getEvPos(ev) {
   }
 
   if (TOUCH_EVS.includes(ev.type)) {
-  
     ev.preventDefault()
     ev = ev.changedTouches[0]
     pos = {
@@ -82,9 +81,15 @@ function getEvPos(ev) {
   return pos
 }
 
-function resizeCanvas() {
+function resizeCanvas(imgId) {
+  // const img = new Image()
+  // img.src = getImgById(imgId)
+  // let imgHeight = img.naturalHeight
+  // let imgWidth = img.naturalWidth
   const elContainer = document.querySelector('.canvas-conatiner')
-  gElCanvas.width = elContainer.offsetWidth - 40
+  // gElCanvas.width = (gElCanvas.offsetHeight * imgHeight) / imgWidth
+  gElCanvas.height = elContainer.offsetHeight
+  gElCanvas.width = elContainer.offsetWidth
   renderMeme('resize')
 }
 
@@ -102,15 +107,17 @@ function drawSavedMeme(src) {
 }
 
 function drawText(lines) {
-  lines.forEach(({ txt, color, size, align, pos, stroke }, idx) => {
-    gCtx.font = `${size}px impactfont`
-    gCtx.lineWidth = 2
-    gCtx.strokeStyle = stroke
-    gCtx.fillStyle = color
-    gCtx.textAlign = align
-    gCtx.fillText(txt, pos.x, pos.y)
-    gCtx.strokeText(txt, pos.x, pos.y)
-  })
+  
+    lines.forEach(({ txt, color, size, align, pos, stroke }, idx) => {
+      gCtx.font = `${size}px impactfont`
+      gCtx.lineWidth = 2
+      gCtx.strokeStyle = stroke
+      gCtx.fillStyle = color
+      gCtx.textAlign = align
+      gCtx.fillText(txt, pos.x, pos.y)
+      gCtx.strokeText(txt, pos.x, pos.y)
+    })
+  
 }
 
 function onAddLine() {
